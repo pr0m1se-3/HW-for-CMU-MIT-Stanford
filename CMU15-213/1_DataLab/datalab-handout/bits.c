@@ -351,9 +351,39 @@ unsigned float_twice(unsigned uf)
  *   Max ops: 30
  *   Rating: 4
  */
+//返回整数 x 的浮点数的位级表示
 unsigned float_i2f(int x)
 {
-  return 1;
+  if(x==0)
+    return 0;
+  int sign=(x>>31)&1;
+  if(sign)
+    x=~x+1;
+  int i=1;//i来记录左移的位数，也就是最高位的1之前的零的个数，那么32-i就是最后的指数。
+  while((x&0x80000000)!=0x80000000)
+  {
+    ++i;
+    x<<=1;
+  }
+  unsigned int res,temp;
+  res=x<<1;
+  temp=res;
+  res>>=9;
+  if(sign)
+    res|=0x80000000;
+  else
+    res&=0X7FFFFFFF;
+  i=32-i+127;
+  res=(res&0x807FFFFF)|(i<<23);
+  if((temp&0x00000100)==0x00000100)
+  {
+    if(temp&0XFF)
+     res+=1;
+    else
+      if(res&1)
+        res+=1;
+  }
+  return res;
 }
 /* 
  * float_f2i - Return bit-level equivalent of expression (int) f
@@ -369,5 +399,23 @@ unsigned float_i2f(int x)
  */
 int float_f2i(unsigned uf)
 {
-  return 2;
+  int flag = uf & (1 << 31);
+  uf = uf & ~(1 << 31);
+  int exp = (uf >> 23);
+  int num = exp -127;
+  if( !exp || (num & (1 << 31)))
+      return 0;
+  else if(!(exp ^ 0xFF))
+  {
+      return (1 << 31);
+  }
+  else
+  {
+      num = 1 << num;
+      if(flag)
+          return ~num + 1;
+      else
+          return num;
+  }
+
 }
