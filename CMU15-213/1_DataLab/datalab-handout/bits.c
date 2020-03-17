@@ -399,23 +399,39 @@ unsigned float_i2f(int x)
  */
 int float_f2i(unsigned uf)
 {
-  int flag = uf & (1 << 31);
-  uf = uf & ~(1 << 31);
-  int exp = (uf >> 23);
-  int num = exp -127;
-  if( !exp || (num & (1 << 31)))
-      return 0;
-  else if(!(exp ^ 0xFF))
-  {
-      return (1 << 31);
-  }
-  else
-  {
-      num = 1 << num;
-      if(flag)
-          return ~num + 1;
-      else
-          return num;
-  }
+ 	unsigned sign = uf >> 31;
+	  unsigned exp = (uf >> 23) & 0xFF;
+	  unsigned frac =(uf & 0x7FFFFF);
+	  unsigned bias = 0x7F;
+	  unsigned res = frac;
+  
+  // special cases: NaN and Inf
+  if (exp == 0xFF) 
+    return 0x80000000u;
+  
+  // denormalized case and normalized exp less than Bias cases
+  if (exp < bias)
+    return 0x0;
+  
+  // normalized cases
+  exp -= bias;
+  
+  // overflow case
+  if (exp >= 31)
+    return 0x80000000u;
+  
+  // get integer result after shift corresponding bits
+  if (exp > 22) 
+    res = frac << (exp - 23);
+  else 
+    res = frac >> (23 - exp);
 
+  // add 1 << exp for normalized case
+  res += 1 << exp;
+  
+  // if sign = 1, change its sign
+  if (sign)
+    res = -res;
+  
+  return res;
 }
