@@ -287,7 +287,33 @@ int logicalNeg(int x)
  */
 int howManyBits(int x)
 {
-  return 0;
+  int sign=(x>>31)&1;
+  sign = ~sign+1;
+  x=(x&(~sign))|((~x)&sign);
+
+  int res=0;
+  int res1=(x>>16)&(-1);
+  int temp=(!!res1)<<4;
+  res+=temp;
+  x>>=temp;
+  res1=(x>>8)&(-1);
+  temp=(!!res1)<<3;
+  res+=temp;
+  x>>=temp;
+  res1=(x>>4)&(-1);
+  temp=(!!res1)<<2;
+  res+=temp;
+  x>>=temp;
+  res1=(x>>2)&(-1);
+  temp=(!!res1)<<1;
+  res+=temp;
+  x>>=temp;
+  res1=(x>>1)&(-1);
+  temp=(!!res1);
+  res+=temp;
+  x>>=temp;
+  res+=x;
+  return res+1;
 }
 //float
 /* 
@@ -303,7 +329,18 @@ int howManyBits(int x)
  */
 unsigned float_twice(unsigned uf)
 {
-  return 2;
+  int exponent = (uf>>23)&0XFF;
+  int sign = uf&(1<<31);
+  //denormalized number
+  if(exponent==0)
+    return sign|(uf<<1);//(因为非规范数和规范数是连续的)
+  //NAN 
+  if(exponent==255)
+    return uf;
+  exponent+=1;
+  if(exponent==255)
+    return sign|(0xFF<<23);
+  return (uf&0X807FFFFF)|(exponent<<23);
 }
 /* 
  * float_i2f - Return bit-level equivalent of expression (float) x
@@ -316,7 +353,7 @@ unsigned float_twice(unsigned uf)
  */
 unsigned float_i2f(int x)
 {
-  return 2;
+  return 1;
 }
 /* 
  * float_f2i - Return bit-level equivalent of expression (int) f
