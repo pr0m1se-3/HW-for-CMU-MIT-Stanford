@@ -4,3 +4,4 @@
 |-|-|
 |0_CProgrammingLab|✅|
 |1_DataLab|✅|
+|2_BombLab|✅|
