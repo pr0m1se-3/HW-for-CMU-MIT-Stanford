@@ -14,3 +14,8 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 |Machine Learning|李宏毅机器学习|❎|
 |CMU15-445|数据库|❎|
 |CMU15-641|计算机网络|❎|
+|CS246|Mining Massive Data Sets|❎|
+|CS148|计算机图形学|❎|
+|CS248|Interactive Computer Graphics|❎|
+|CS448B|Visualization|❎|
+|CS251|BlockChain|❎|
