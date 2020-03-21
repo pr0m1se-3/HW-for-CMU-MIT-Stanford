@@ -10,7 +10,7 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 |CMU15-213|深入了解计算机系统|❎|
 |CMU15-418|并行计算|❎|
 |CMU15-410|操作系统|❎|
-|MIT6.824|分布式系统|❎|
+|[MIT6.824](https://pdos.csail.mit.edu/6.824/)|分布式系统|❎|
 |Machine Learning|李宏毅机器学习|❎|
 |CMU15-445|数据库|❎|
 |CMU15-641|计算机网络|❎|
@@ -18,4 +18,7 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 |CS148|计算机图形学|❎|
 |CS248|Interactive Computer Graphics|❎|
 |CS448B|Visualization|❎|
-|CS251|BlockChain|❎|
+|[CS251](https://cs251.stanford.edu/)|BlockChain|❎|
+|[MIT6.858](https://css.csail.mit.edu/6.858/2020/)|Computer Systems Security|❎|
+|[CS106L](http://web.stanford.edu/class/cs106l/index.html)|C++|❎|
+|[CS110](http://web.stanford.edu/class/cs110/)|Principles of Computer Systems|❎|
