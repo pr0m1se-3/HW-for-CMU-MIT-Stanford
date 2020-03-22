@@ -37,6 +37,6 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 |CS148|计算机图形学|❎|
 |CS248|Interactive Computer Graphics|❎|
 |CS448B|Visualization|❎|
-
+|[CS9E](https://selfpaced.bitbucket.io/#/unix/calendar)|Productive Use of the UNIX Environment|❎|
 
 
