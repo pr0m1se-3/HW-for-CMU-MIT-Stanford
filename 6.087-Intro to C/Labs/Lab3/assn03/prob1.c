@@ -8,9 +8,9 @@ static unsigned int results_buffer[NMAX];
 void fibonacci()
 {
 	/* here are the variables to set as registers */
-	unsigned int a = 0;
-	unsigned int b = 1;
-	unsigned int c;
+	register unsigned int a = 0;
+	register unsigned int b = 1;
+	register unsigned int c;
 	int n;
 
 	/* do not edit below this line */
