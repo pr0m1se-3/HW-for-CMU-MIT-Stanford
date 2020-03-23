@@ -7,6 +7,8 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 
 |课程代号|课程内容|完成情况|
 |-|-|-|
+|[6.087](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-087-practical-programming-in-c-january-iap-2010/calendar/)|C|✅|
+|[CS70](http://www.eecs70.org/)|Discrete Mathematics and Probability Theory||
 |[CS2043](https://www.cs.cornell.edu/courses/cs2043/2019sp/schedule.html)|Unix||
 |CMU15-213|深入了解计算机系统|❎|
 |[CMU15-641](https://computer-networks.github.io/sp19/)|计算机网络|❎|
@@ -38,5 +40,8 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 |CS248|Interactive Computer Graphics|❎|
 |CS448B|Visualization|❎|
 |[CS9E](https://selfpaced.bitbucket.io/#/unix/calendar)|Productive Use of the UNIX Environment|❎|
+
+
+
 
 
