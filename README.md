@@ -7,7 +7,7 @@ CMU-MIT-Stanford 一些课程的作业和笔记
 
 |课程代号|课程内容|完成情况|
 |-|-|-|
-|[CMU15-123](https://www.cs.cmu.edu/afs/andrew/course/15/123/downloads/)|C and Unix|❎|
+|[CMU15-123](https://www.cs.cmu.edu/afs/andrew/course/15/123/downloads/)|[C and Unix](http://www.cs.cmu.edu/~guna/15-123S11/)|❎|
 |[6.087](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-087-practical-programming-in-c-january-iap-2010/calendar/)|C|✅|
 |[CS70](http://www.eecs70.org/)|Discrete Mathematics and Probability Theory||
 |[CS2043](https://www.cs.cornell.edu/courses/cs2043/2019sp/schedule.html)|Unix||
