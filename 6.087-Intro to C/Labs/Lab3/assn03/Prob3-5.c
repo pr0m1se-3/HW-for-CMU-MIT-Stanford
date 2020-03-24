@@ -30,7 +30,7 @@ int main()
     /*print the header*/
     printf("%-30s,%6s\n" , "STATE" , "TOTAL" );
     printf("---------------------------------------\n" );
-    while( fgets(line , STRSIZE*NFIELDS,fp))
+    while( fgets(line,STRSIZE*NFIELDS,fp))
     {
         /*parse the fields*/
         fields_read=sscanf(line , "%s\t%s\t%s\t%s\t%s\t%s\t%d\t%d\t%d" ,
