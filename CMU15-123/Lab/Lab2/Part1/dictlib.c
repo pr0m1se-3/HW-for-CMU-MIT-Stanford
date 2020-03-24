@@ -9,13 +9,13 @@
 */
 int resize(char ***ptr, int *nptr)
 {
+  //printf("Double the size!!!\n");
   char **temp = calloc(*nptr * 2, sizeof(char *));
   for (int i = 0; i < *nptr; ++i)
-  {
     temp[i]=*(*ptr+i);
-  }
-  (*nptr)*=2;
-  ptr=&temp;
+  *nptr*=2;
+  free(*ptr);
+  *ptr=temp;
   return EXIT_SUCCESS;
 }
 
@@ -26,8 +26,6 @@ int resize(char ***ptr, int *nptr)
 
 int insertWord(char **array, char *word, int cap, int index)
 {
-
- // printf("%s\n",word);
   if(index<0||index>=cap||array==NULL||word==NULL)
     return EXIT_FAILURE;
   array[index]=calloc(strlen(word)+1, sizeof(char));
@@ -48,33 +46,19 @@ int sortArray(char **array, int low, int high)
 {
   for(int i=low+1;i<=high;++i)
   {
+
+    //printf("%d   %s\n",i,array[i]);
     int pos=binarysearch(array,array[i],low,i-1);
-    // printf("i=%d,pos=%d  %s\n",i,pos,array[i]);
     char*temp=calloc(strlen(array[i])+1,sizeof(char));
-    memcpy(temp,array[i],strlen(array[i])+1);
-    // printf("@@@@@@@%s\n",temp);
-    // printf("before:\n");
-    // for(int m=low;m<i;++m)
-    // {
-    //   printf("%s%s",array[m],m==i-1?"\n":"    ");
-    // }
+    memcpy(temp,array[i],strlen(array[i]));
     int j=i;
     
     while(j>pos)
     {
-      // printf("***%s  %s\n",array[j],array[j-1]);
       memcpy(array[j],array[j-1],sizeof(*array));
-
       j--;
     }
-    // printf("@@@@@@@%s\n",temp);
     memcpy(array[j],temp,sizeof(*array));
-    free(temp);
-    // printf("after:\n");
-    // for(int m=low;m<=i;++m)
-    // {
-    //   printf("%s %s",array[m],m==i?"\n":"      ");
-    // }
   }
 
   return EXIT_SUCCESS;
@@ -87,7 +71,13 @@ int sortArray(char **array, int low, int high)
 
 void freeAll(char **array, int count)
 {
-
+  for(int i=0;i<count;++i)
+  {
+    //printf("%s\n",array[i]);
+    free(*(array+i));
+    //free(array+i);
+  }
+  free(array);
 }
 
 /* print the array and all its entries into outfile.
@@ -96,6 +86,11 @@ void freeAll(char **array, int count)
 
 void printArray(FILE *fout, char **array, int count)
 {
+  for(int i=0;i<count;++i)
+  {
+    fprintf(fout,"%s\n",array[i]);
+  }
+  fclose(fout);
 }
 
 /* This function finds the place to insert the element. It must return
