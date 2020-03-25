@@ -82,4 +82,10 @@ public class Body {
         xxPos+=dt*xxVel;
         yyPos+=dt*yyVel;
     }
+
+    public void draw()
+    {
+        String path="images/"+imgFileName;
+        StdDraw.picture(xxPos,yyPos,path);
+    }
 }
