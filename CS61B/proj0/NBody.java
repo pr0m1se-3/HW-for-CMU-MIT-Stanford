@@ -44,9 +44,6 @@ public class NBody {
         StdDraw.clear();
         StdDraw.picture(0, 0, "images/starfield.jpg");
 
-        /** 
-         * Draw planets 
-         */
         for (Body planet : Planets) {
             planet.draw();
         }
