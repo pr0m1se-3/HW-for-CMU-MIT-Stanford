@@ -31,11 +31,17 @@ void freeAll(node* list){
  */
 int size(node* list) {
 
+   if(list==NULL)
+      return 0;
+   node*head=list;
    int res=0;
    while(list!=NULL)
    {
-      ++res;
       list=list->next;
+      ++res;
+      if(list==head)
+         break;
+
    }
   return res;
 }
@@ -59,7 +65,7 @@ void append(node** list,int data){
    if(isEmpty(*list))
    {
       *list=insert;
-      printf("now the head is not null!\n");
+      //printf("now the head is not null!\n");
       return;
    }
    node*before=NULL;
@@ -119,7 +125,7 @@ void insertAt(node** listptr , int data, int index ){
    node* insert=malloc(sizeof(node*));
    if(insert==NULL)
    {
-      printf("falied to malloc a new pointer of node");
+      //printf("falied to malloc a new pointer of node");
       return;
    }
    insert->data=data;
@@ -150,8 +156,30 @@ void insertAt(node** listptr , int data, int index ){
 */ 
 
 char* toString(node* list) {
-
-  return NULL;
+   int num=size(list);
+   int flag=isCircular(list);
+   printf("%d\n",num);
+   char temp[10*num+10];
+   node*head=list;
+   int index=0;
+   while(list!=NULL)
+   {
+      int n=sprintf(temp+index,"%d ",list->data);
+      index+=n;
+      list=list->next;
+      if(list==head)
+         break;
+   }
+   if(!flag)
+   {
+      int n=sprintf(temp+index,"NULL");
+      index+=n;
+      temp[index]='\0';
+   }
+   char*res=malloc(sizeof(char)*strlen(temp)+1);
+   strcpy(res,temp);
+   res[index]='\0';
+   return res;
 }
 
 
@@ -232,12 +260,18 @@ node* rotate(node** listptr, int n ){
    Precondition: list is singly LL and can be empty
 */
 int elementAt(node* list,int index){
-   if(list==NULL||index<0||index>=size(list))
+   if(list==NULL||index<0)
+      return 0;
+   if(isCircular(list))
+      index%=size(list);
+   //printf("The index is %d\n",index);
+   if(index>=size(list))
       return 0;
    while(index--)
    {
       list=list->next;
    }
+   //printf("!!!!!%d\n",list->data);
    return list->data;
 }
 
@@ -247,7 +281,8 @@ int elementAt(node* list,int index){
    use isCircular to assert before changing
 */
 void doCircular(node* list) {
-   assert(1==isCircular(list));
+   if(1==isCircular(list))
+      return;
    node*head=list;
    node*before=NULL;
    node*now=list;
@@ -256,7 +291,7 @@ void doCircular(node* list) {
       before=now;
       now=now->next;
    }
-    before->next=head;
+   before->next=head;
 }
 
 
@@ -266,12 +301,22 @@ void doCircular(node* list) {
    use isCircular to assert before changing
 */
 void undoCircular(node* list){
-   assert(0==isCircular(list));
+   
+   if(0==isCircular(list))
+      return;
+
    node*head=list;
    node*now=list;
-   while(now->next!=head)
+   int num=size(list);
+
+   while(--num)
+   {
       now=now->next;
+      
+   }
+
    now->next=NULL;
+
 }
 
 /* returns 1 if the list is circular. otherwise return 0
@@ -281,15 +326,12 @@ void undoCircular(node* list){
    A list is one node is circular if head->next = head
 */
 int isCircular(node* list){
-
-   node*fast=list;
-   node*slow=list;
-   while(fast!=NULL&&slow!=NULL&&slow->next!=NULL&&fast->next!=NULL&&fast->next->next!=NULL)
+   node*head=list;
+   while(list!=NULL)
    {
-      if(fast==slow)
+      list=list->next;
+      if(list==head)
          return 1;
-      slow=slow->next;
-      fast=fast->next->next;
    }
    return 0;
 }
@@ -304,6 +346,24 @@ int isCircular(node* list){
    Postcondition: list is sorted. 
 */ 
 node* sort(node* listptr){
+   node*res;
+   res->next=NULL;
+   res->data=0;
+   int num=size(listptr);
+   while(num--)
+   {
 
-  return NULL;
+      node*before=res;
+      node*after=res->next;
+      while(after!=NULL&&after->data<listptr->data)
+      {
+         before=before->next;
+         after=after->next;
+      }
+      before->next=listptr;
+      node*temp=listptr->next;
+      listptr->next=after;
+      listptr=temp;
+   }
+   return res->next;
 }
