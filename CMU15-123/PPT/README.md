@@ -95,5 +95,112 @@ A:
 `./a.out`:This command says to look in the current directory (.) and run a.out. Normally the system doesn't look in the current directory for executable programs unless you have "." in your PATH.
 
 
+### Lecture 08 Dynamic Memory Allocation
+|Function|Description|
+|-|-|
+|`void *calloc(size_t nmemb, size_t size);`|`calloc()` allocates memory for an array of nmemb elements of size bytes each and returns a pointer to the allocated memory. The memory is set to zero.|
+|`void *malloc(size_t size);`|`malloc()`allocates size bytes and returns a pointer to the allocated memory. **The memory is not cleared.**|
+|`void free(void *ptr);`|`free()` frees the memory space pointed to by ptr, which must have been returned by a previous call to malloc(), calloc() or realloc(). Otherwise, or if free(ptr) has already been called before, undefined behaviour occurs. If ptr is NULL, no operation is performed.|
+|`void *realloc(void *ptr, size_t size);`|`realloc()` changes the size of the memory block pointed to by ptr to size bytes. The contents will be unchanged to the minimum of the old and new sizes; **newly allocated memory will be uninitialized.** If ptr is NULL, the call is equivalent to `malloc(size)`; if size is equal to `zero`, the call is equivalent to `free(ptr)`. Unless ptr is NULL, it must have been returned by an earlier call to `malloc()`, `calloc()` or `realloc()`.|
+
+##### Memory Leaks
+Memory leaks refer to memory that has been allocated by an application, but not properly released back once that memory is no longer needed.
+
+**It is a good idea to assign NULL to a pointer that has been freed.**
+
+
+We call variables that are assigned space through `malloc` or `calloc` **dynamic variables**.
+
+`void*` ptr or can be specific like `int*`, `char*` etc.. The type (`int*`, `char*`..) determines how many bytes are dereferenced when the actual pointer is dereferenced.
+
+### Lecture 09 C Structs and Linked Lists
+
+Structs in C are used to package several data fields into one unit.
+
+The amount of memory necessary to hold struct is not always the sum of the data sizes. It is possible that a padding may occur for word alignment.
+
+
+##### Structs within BMP files
+
+```C
+typedef struct { 
+    unsigned short int type; 
+    /* BMP type identifier */ 
+    unsigned int size; 
+    /* size of the file in bytes*/ 
+    unsigned short int reserved1, reserved2; unsigned int offset;
+     /* starting address of the byte */ } HEADER;
+
+The next 40 bytes are reserved for a structure as follows.
+
+typedef struct { 
+    unsigned int size; 
+    /* Header size in bytes */ 
+    int width,height; 
+    /* Width and height in pixels */ 
+    unsigned short int planes; 
+    /* Number of color planes */ 
+    unsigned short int bits; 
+    /* Bits per pixel */ 
+    unsigned int compression; 
+    /* Compression type */ 
+    unsigned int imagesize; 
+    /* Image size in bytes */ 
+    int xresolution,yresolution; 
+    /* Pixels per meter */ 
+    unsigned int ncolors; 
+    /* Number of colors */ 
+    unsigned int importantcolors; 
+    /* Important colors */ } INFOHEADER;
+```
+
+### Lecture 11 Doubly Linked Lists & Array of Linked Lists
+
+##### Doubly Linked Lists(DLL)
+
+```C
+
+typedef struct node { 
+    void* data; 
+    struct node* next; 
+    struct node* prev; } node;
+```
+
+```C
+head data = malloc(sizeof(int)); 
+*((int*)(head data)) = 12;
+
+head data = malloc(strlen(“guna”)+1); 
+strcpy((char*)(headdata), “guna”);
+
+```
+###### Inserting to a Doubly Linked Lists
+```C
+newnode->next = current->next; 
+current->next = newnode; 
+newnode->prev = current; 
+(newnode->next)->prev = newnode;
+```
+###### Deleting a Node from a Doubly Linked Lists
+
+```C
+node* N = current->prev;
+N->next = current->next;
+(N->next)->prev = N;
+free(current);
+```
+
+##### An Array of Linked Lists
+
+Suppose that a linked list needs to be created starting at `A[i]`. The first node can be created as follows.
+
+```C
+A[i] = (node*)malloc(sizeof(node)); 
+// allocate memory for node 
+A[i]->size = 10; 
+A[i]->name = (char*)malloc(strlen(“guna”+1)); strcpy(A[i]->name, “guna\0”); 
+A[i]->next = NULL;
+```
+
 
 
