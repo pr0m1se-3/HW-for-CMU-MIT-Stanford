@@ -39,14 +39,21 @@ int main(int argc, char* argv[])
   assert(isCircular(list)==true);
   
   assert(isEmpty(list)==false);
-  
+  printf("%s\n",toString(list));
+
+  rotate(&list,2);
+  //printf("%s\n",toString(list));
+  rotate(&list,-2);
+  //printf("%s\n",toString(list));
   undoCircular(list);
 
   printf("%s\n",toString(list)); 
   assert(isCircular(list)==false);
   assert(contains(list,11)==true);
-  printf("now the length is %d\n",size(list));
+  
   list=sort(list);
+  printf("%s\n",toString(list)); 
+  removeAt(&list,0);
   printf("%s\n",toString(list)); 
   return EXIT_SUCCESS;
 }

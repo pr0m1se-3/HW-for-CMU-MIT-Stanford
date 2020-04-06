@@ -158,7 +158,7 @@ void insertAt(node** listptr , int data, int index ){
 char* toString(node* list) {
    int num=size(list);
    int flag=isCircular(list);
-   printf("%d\n",num);
+
    char temp[10*num+10];
    node*head=list;
    int index=0;
@@ -251,8 +251,17 @@ int removeAt(node** listptr, int index ){
    Postcondition: list nodes has not changed but head may have 
 */
 node* rotate(node** listptr, int n ){
-
-  return NULL;
+   assert(isCircular(*listptr));
+   int num=size(*listptr);
+   if(n>0)
+      n=num-n;
+   else if(n<0)
+      n=-n;
+   node*head=*listptr;
+   while(n--)
+      head=head->next;
+   (*listptr)=head;
+   return *listptr;
 }
 
 /* returns the element at index .
@@ -346,7 +355,8 @@ int isCircular(node* list){
    Postcondition: list is sorted. 
 */ 
 node* sort(node* listptr){
-   node*res;
+   assert(!isCircular(listptr));
+   node*res=malloc(sizeof(node));
    res->next=NULL;
    res->data=0;
    int num=size(listptr);
@@ -365,5 +375,8 @@ node* sort(node* listptr){
       listptr->next=after;
       listptr=temp;
    }
-   return res->next;
+   node*temp=res;
+   res=res->next;
+   free(temp);
+   return res;
 }
