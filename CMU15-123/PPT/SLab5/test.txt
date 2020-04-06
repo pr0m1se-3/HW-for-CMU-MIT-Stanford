@@ -1,0 +1,5 @@
+guna	2
+me	5
+helo	2
+hut	1
+pizza	7
