@@ -203,4 +203,101 @@ A[i]->next = NULL;
 ```
 
 
+### Lecture 12 Doubly Linked Lists(with Recursion)
 
+A doubly linked list is a collection of objects linked together by references from one object to another object, both forward and backward.
+
+
+### Lecture 14 Function Pointers
+
+###### Functions with variable number of arguments
+
+`printf` and `scanf` are two IO functions that take variable number of arguments.
+
+```C
+#include <stdarg.h> 
+/* header for variable argument list */ 
+int sum(int argcnt, …) /* argcnt supplies count of other args */ 
+{   va_list ap; /* argument pointer */
+    int ans = 0; 
+    va_start(ap, argcnt);
+     /* initialize ap */ 
+     while (argcnt-- > 0) /* process all args */ 
+        ans += va_arg(ap, int); 
+    va_end(ap) ; 
+        /* clean up before function returns */ return (ans); }
+```
+
+The `<stdarg.h>` is a macro library that contains a set of macros, which allows portable functions, that, accepts variable argument lists to be coded.
+
+* `va_start()` This is a macro that is invoked to initialize ap, a pointer to argument list. This macro must be called to initialize the list before any calls to va_arg().
+* `va_arg()` This macro returns the next argument in the list pointed to by ap. Each invocation of `va_arg()` modifies ap so that the values of successive arguments are returned in turn. The type parameter is the type the argument is expected to be. This is the type name specified such that the type of a pointer to an object that has the specified type can be obtained simply by suffixing a * to type. Different types can be mixed, but it is up to the routine to know what type of arguments are expected.
+* `va_end()` This macro is used to clean up; it invalidates ap for use (unless `va_start()` is invoked again).
+
+
+###### Introduction to Function Pointers
+
+The syntax of function pointers can sometimes be confusing. So we can use a typedef statement to make things simpler.
+
+`typedef <return_type> (* fpointer)(argument list);`
+
+```C
+int (*Convert(const char code)) (int, int) { 
+    if (code = = ‘+’) 
+        return &Sum; 
+    if (code = = ‘-’) 
+        return &Difference; }
+
+=>
+
+typedef int (*Ptr)(int,int);
+Ptr Convert(const char code) { 
+    if (code = = ‘+’) 
+        return &Sum; 
+    if (code = = ‘-’) 
+        return &Difference; 
+}
+
+Use the Convert function as follows 
+int main ( ) {  
+    int (*ptr)(int,int); 
+    /* or: Ptr ptr; if you have a typedef */
+    ptr = Convert(‘+’);
+    printf( “%d \n”, ptr(2,4)); }
+```
+
+###### Passing Function Pointers to a Another Function
+
+###### Generic Functions
+
+One of the major benefits of a function pointer is that it can be passed to another function as one of the arguments.
+
+
+### Lecture 15 Generic Data Structures
+
+we define a generic LIST_ELEM that can hold any data type as its data.
+
+```C
+typedef struct LIST_ELEM {
+    void * data;
+    struct LIST_ELEM } LIST_ELEM;
+```
+
+### Lecture 17 Introduction to Hashing
+
+###### Finding a “good” hash Function
+
+
+### Lecture 20-1 Regular Expressions
+
+`ls *.c`
+
+Lists all the files with c extension or
+
+`ls ab*`
+
+lists all file names that starts with ab in the current directory. These type of commands (ls,dir etc) work with windows, unix and most operating systems. That is, the command ls will look for files with a certain name patterns but are limited in ways we can describe patterns. The wild card (*) is typically used with many commands in unix. For example,
+
+`cp *.c /afs/andrew.cmu.edu/course/15/123/handin/Lab6/guna`
+
+copies all .c files in the current directory to the given directory
