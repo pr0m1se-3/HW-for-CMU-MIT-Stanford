@@ -17,11 +17,12 @@
  *  This structure should ONLY be used by dll functions.  User code should only
  *  use the dll_l type
  */
-typedef struct DLL_NODE {
-  void *key;              /* pointer to the key for node */
-  void *value;            /* pointer to the value for the node */
-  struct DLL_NODE *next;  /* pointer to next node */
-  struct DLL_NODE *prev;  /* pointer to previous node */
+typedef struct DLL_NODE
+{
+    void *key;             /* pointer to the key for node */
+    void *value;           /* pointer to the value for the node */
+    struct DLL_NODE *next; /* pointer to next node */
+    struct DLL_NODE *prev; /* pointer to previous node */
 } dll_node;
 
 /** @brief Structure for a doubly linked list
@@ -36,14 +37,13 @@ typedef struct DLL_NODE {
  *	The free functions take a DLL_NODE.key and properly free the associated memory 
  *  </pre>
  */
-typedef struct DLL {
-  	dll_node *head;           /* head node of the list */
-       	int (*cmp)(const void*, const void*); /* Compare function pointer */
-	void (*free_key)(void*); /* takes a pointer to a key and frees it*/
-	void (*free_value)(void*); /* takes a pointer to a value and frees it*/
+typedef struct DLL
+{
+    dll_node *head;                         /* head node of the list */
+    int (*cmp)(const void *, const void *); /* Compare function pointer */
+    void (*free_key)(void *);               /* takes a pointer to a key and frees it*/
+    void (*free_value)(void *);             /* takes a pointer to a value and frees it*/
 } dll_l;
-
-
 
 /** @brief Initializes the linked list
  *
@@ -60,21 +60,21 @@ int dll_init_list(dll_l *head);
   *	@param free_key	Function pointer to free_key
   *	@return SUCCESS(0) or FAILURE(1) on error
   */
-int dll_set_free_key(dll_l *list, void (*free_key)(void*) );
+int dll_set_free_key(dll_l *list, void (*free_key)(void *));
 
 /** @brief Sets the free value function for the given dll
   *
   *	@param free_value Function pointer to free_value 
   *	@return SUCCESS or FAILURE code on error
   */
-int dll_set_free_value(dll_l *list, void (*free_value)(void*) );
+int dll_set_free_value(dll_l *list, void (*free_value)(void *));
 
 /** @brief Sets the compare function for the given dll
  *
  *  @param sets the cmp Function pointer to compare function
  *  @return SUCCESS or error code on error
  */
-int dll_set_cmp(dll_l *list, int (*cmp)(const void*, const void*));
+int dll_set_cmp(dll_l *list, int (*cmp)(const void *, const void *));
 
 /** @brief Inserts the given key/value pair into the DLL
  *
@@ -109,8 +109,7 @@ int dll_retrieve(dll_l *list, void *key, void **value);
  *  @param args Pointer to argument structure for optional arguments (or NULL)
  *  @return SUCCESS or FAILURE on error
  */
-int dll_map(dll_l *list, void (*func)(void*, void*), void* args);
-
+int dll_map(dll_l *list, void (*func)(void *, void *), void *args);
 
 /** @brief Frees all the memory used by the dll nodes.
  *
@@ -135,7 +134,7 @@ int dll_map(dll_l *list, void (*func)(void*, void*), void* args);
  *  @param args Argument structure for function
  *  @return SUCCESS or FAILURE on error
  */
-int dll_dispose(dll_l *list, void (*func)(void*, void*), void* args);
+int dll_dispose(dll_l *list, void (*func)(void *, void *), void *args);
 
 /* @brief given a key delete the corresponding node
  *
